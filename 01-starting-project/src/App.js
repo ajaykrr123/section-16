@@ -1,5 +1,5 @@
 import SimpleInput from './components/SimpleInput';
-
+// import
 function App() {
   return (
     <div className="app">
