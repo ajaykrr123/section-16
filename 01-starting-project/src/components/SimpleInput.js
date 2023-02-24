@@ -1,11 +1,72 @@
+import { useEffect, useRef, useState } from 'react';
+
 const SimpleInput = (props) => {
+ 
+  const [enteredName, setEnteredName] = useState('');
+  // const [enteredNameIsValid, setEnteredNameIsValid] = useState(false);
+  const [enteredNameTouched, setEnteredNameTouched] = useState(false);
+const  enteredNameIsValid=enteredName.trim()!=='';
+  // useEffect(() => {
+  //   if (enteredNameIsValid) {
+  //     console.log('Name Input is valid!');
+  //   }
+  // }, [enteredNameIsValid]);
+
+  const nameInputChangeHandler = (event) => {
+    setEnteredName(event.target.value);
+   
+  };
+
+  const nameInputBlurHandler = event => {
+    setEnteredNameTouched(true);
+
+  
+  };
+
+  const formSubmissionHandler = (event) => {
+    event.preventDefault();
+
+    setEnteredNameTouched(true);
+if(!enteredNameIsValid){
+  return
+}
+    
+
+    // setEnteredNameIsValid(true);
+
+    console.log(enteredName);
+
+   
+
+    // nameInputRef.current.value = ''; => NOT IDEAL, DON'T MANIPULATE THE DOM
+    setEnteredName('');
+    setEnteredNameTouched(false);
+
+  };
+
+  const nameInputIsInvalid = !enteredNameIsValid && enteredNameTouched;
+
+  const nameInputClasses = nameInputIsInvalid
+    ? 'form-control invalid'
+    : 'form-control';
+
   return (
-    <form>
-      <div className='form-control'>
+    <form onSubmit={formSubmissionHandler}>
+      <div className={nameInputClasses}>
         <label htmlFor='name'>Your Name</label>
-        <input type='text' id='name' />
+        <input
+          
+          type='text'
+          id='name'
+          onChange={nameInputChangeHandler}
+          onBlur={nameInputBlurHandler}
+          value={enteredName}
+        />
+        {nameInputIsInvalid && (
+          <p className='error-text'>Name must not be empty.</p>
+        )}
       </div>
-      <div className="form-actions">
+      <div className='form-actions'>
         <button>Submit</button>
       </div>
     </form>
@@ -13,4 +74,3 @@ const SimpleInput = (props) => {
 };
 
 export default SimpleInput;
-// featurechange
