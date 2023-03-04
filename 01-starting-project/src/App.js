@@ -1,11 +1,10 @@
-import SimpleInput from './components/SimpleInput';
-// import
-// added comment// added comment
-// added comment
+
+import BasicForm from './components/BasicForm';
+
 function App() {
   return (
     <div className="app">
-      <SimpleInput />
+      <BasicForm />
     </div>
   );
 }
